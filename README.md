@@ -3,6 +3,22 @@
 > **不寫程式,也能用 AI 完成自動化任務**  
 > 這是一個專為「AI 詠唱者」設計的實戰學習專案。你只需要用中文描述需求,AI 會幫你完成所有程式碼。
 
+> 🚀 **快速傳送門**：
+> [GitHub](https://github.com/) | [專案倉庫](https://github.com/JB-Ming/StarPilot) | [Codespaces](https://github.com/codespaces) | [Copilot 設定](https://github.com/settings/copilot) | [Netlify](https://app.netlify.com) | [ChatGPT](https://chat.openai.com) | [Claude](https://claude.ai) | [Gemini](https://gemini.google.com) | [Streamlit](https://share.streamlit.io) | [Render](https://render.com)
+
+> [!TIP]
+> **🖱️ 操作原則**：在操作過程中，畫面上會出現**高亮顏色的按鈕**（通常是綠色、藍色或紫色）。
+> 看到這些按鈕，**請直接點擊它**！講師不會逐一說明每個按鈕，這樣可以加速課程進度。
+> 簡單記住：**「亮的就點！」** ✨
+>
+> **常見按鈕**：
+> 
+> **GitHub**：![Fork](https://img.shields.io/badge/Fork-grey?style=flat-square) ![Code](https://img.shields.io/badge/%3C%3E_Code-238636?style=flat-square) ![Create codespace](https://img.shields.io/badge/Create_codespace_on_main-238636?style=flat-square) ![Commit changes](https://img.shields.io/badge/Commit_changes-238636?style=flat-square) ![Sync fork](https://img.shields.io/badge/Sync_fork-grey?style=flat-square)
+> 
+> **VS Code**：![Run](https://img.shields.io/badge/▶_Run-4CAF50?style=flat-square) ![Commit](https://img.shields.io/badge/✓_Commit-0078D4?style=flat-square) ![Sync](https://img.shields.io/badge/🔄_Sync_Changes-0078D4?style=flat-square) ![Stage](https://img.shields.io/badge/+_Stage-0078D4?style=flat-square) ![Install](https://img.shields.io/badge/Install-0078D4?style=flat-square)
+> 
+> **對話框**：![Allow](https://img.shields.io/badge/Allow-0078D4?style=flat-square) ![Trust](https://img.shields.io/badge/Trust-0078D4?style=flat-square) ![Accept](https://img.shields.io/badge/Accept-238636?style=flat-square) ![Continue](https://img.shields.io/badge/Continue-0078D4?style=flat-square) ![OK](https://img.shields.io/badge/OK-0078D4?style=flat-square)
+
 ---
 
 ## 📖 專案簡介
