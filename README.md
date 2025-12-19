@@ -1056,44 +1056,7 @@ StarPilot/
 
 #### 🌐 快速部署方式
 
-**方案 1：GitHub Pages（推薦，最簡單）**
-
-適合：靜態網頁、HTML 遊戲、展示頁面
-
-```
-步驟：
-1️⃣ 確保檔案已推送到 GitHub
-   - 你的 HTML 檔案（例如：snake_game.html）
-   - 應該在 playground/ 資料夾中
-
-2️⃣ 進入 GitHub 倉庫設定
-   - 前往：https://github.com/你的帳號/StarPilot/settings
-   - 例如：https://github.com/joulongt/StarPilot/settings
-
-3️⃣ 左側選擇「Pages」
-
-4️⃣ 設定部署來源
-   - Source: 選擇「Deploy from a branch」
-   - Branch: 選擇「master」（或 main）
-   - Folder: 選擇「/playground」
-   - 點擊「Save」
-
-5️⃣ 完成！
-   - 等待約 1-2 分鐘部署完成
-   - 你的遊戲網址會是：
-     https://你的帳號.github.io/StarPilot/snake_game.html
-   - 例如：https://joulongt.github.io/StarPilot/snake_game.html
-```
-
-> 💡 **優點**：
-> - ✅ 完全免費，無流量限制
-> - ✅ 自動 HTTPS 加密
-> - ✅ 每次 push 到 GitHub 會自動更新
-> - ✅ 適合 HTML、CSS、JavaScript 靜態網頁
-
----
-
-**方案 1-2：Netlify（最簡單！推薦新手）**
+**方案 1：Netlify（最簡單！推薦新手）**
 
 適合：靜態網頁、HTML 遊戲、展示頁面（操作更直覺）
 
@@ -1101,32 +1064,68 @@ StarPilot/
 步驟：
 1️⃣ 訪問 Netlify
    - 前往：https://app.netlify.com
-   - 使用 GitHub 帳號登入（一鍵授權）
+   - 點擊「Sign up with GitHub」使用 GitHub 帳號登入
 
-2️⃣ 新增網站
-   - 點擊「Add new site」
-   - 選擇「Import an existing project」
+2️⃣ 快速完成 Onboarding 問卷
+   登入後會出現一系列問題，快速填寫即可：
+   
+   📝 What is your name?
+      - First name / Last name：填你的名字（隨意填都可以）
+   
+   📝 How are you planning to use Netlify?
+      - 選擇「Personal」（個人使用）
+   
+   📝 What kind of project do you want to build first?
+      - 選擇「Personal project」或「Games」都可以
+   
+   📝 What best describes your role?
+      - 隨便選一個，例如「Other」
+   
+   📝 What is the name of your team?
+      - 填一個簡單的名稱，例如：myteam
+   
+   ✅ 點擊「Continue to deploy」繼續
 
-3️⃣ 連接 GitHub 倉庫
-   - 選擇「GitHub」
-   - 找到你的倉庫（例如：joulongt/StarPilot）
-   - 點擊「Authorize」授權存取
+3️⃣ 略過 Deploy your first project 頁面
+   - 會跳到「Deploy your first project」頁面
+   - ❌ 不要在這裡點擊 GitHub
+   - ✅ 點擊上方的「Skip this step for now」略過
+   - 這樣會進入 Netlify 首頁
 
-4️⃣ 設定部署
-   - Base directory: playground
-   - Publish directory: playground
-   - 其他保持預設即可
+4️⃣ 在首頁新增專案
+   - 首次進入會看到「Add your project to Netlify」頁面
+   - 在「Import an existing project」區塊，點擊「Import from Git」按鈕
+   - （之後再進入會改成點右上角綠色「Add new project」按鈕）
 
-5️⃣ 點擊「Deploy site」
+5️⃣ 連接 GitHub 倉庫
+   - 會看到「Let's deploy your project with...」頁面
+   - 點擊「GitHub」按鈕
+   - 首次使用需授權 Netlify 存取你的 GitHub
+   - 找到並選擇你的倉庫（例如：你的帳號/StarPilot）
 
-6️⃣ 完成！
+6️⃣ 設定部署參數
+   會看到「Review configuration for StarPilot」頁面，填寫以下欄位：
+   
+   📝 Team：保持預設（你的團隊名稱）
+   📝 Project name：填 `你的名字-snake-game`（例如：`ming-snake-game`）
+      ⚠️ 建議加上你的名字避免重複，這會成為網址的一部分
+   📝 Branch to deploy：保持「master」或「main」
+   📝 Base directory：填 `playground`
+   📝 Build command：留空（靜態網頁不需要）
+   📝 Publish directory：填 `playground`
+   📝 Functions directory：留空或保持預設
+   📝 Environment variables：不用設定
+   
+   ✅ 點擊「Deploy StarPilot」按鈕
+
+7️⃣ 完成！
    - 等待約 30 秒～1 分鐘部署完成
    - Netlify 會自動生成網址：
      https://random-name-123456.netlify.app
    - 可以自訂網址：Site settings → Change site name
 ```
 
-> 💡 **優點**（比 GitHub Pages 更好用）：
+> 💡 **優點**：
 > - ✅ 設定超級簡單，全程圖形化介面
 > - ✅ 自動生成隨機網址，立即可用
 > - ✅ 可以免費自訂子網域（your-name.netlify.app）
