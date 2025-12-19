@@ -1,0 +1,82 @@
+[
+  {
+    "name": "王小明",
+    "phone": "0912-345-678",
+    "email": "xiaoming.wang@example.com",
+    "company": "美好科技",
+    "category": "同事",
+    "notes": "每週三開會"
+  },
+  {
+    "name": "李美華",
+    "phone": "0923-456-789",
+    "email": "meihua.li@example.com",
+    "company": "創新工坊",
+    "category": "客戶",
+    "notes": "大客戶優先處理"
+  },
+  {
+    "name": "張大偉",
+    "phone": "0934-567-890",
+    "email": "dawei.zhang@example.com",
+    "company": "美好科技",
+    "category": "同事",
+    "notes": "同部門"
+  },
+  {
+    "name": "陳淑芬",
+    "phone": "0945-678-901",
+    "email": "shufen.chen@example.com",
+    "company": "幸福銀行",
+    "category": "客戶",
+    "notes": "財務窗口"
+  },
+  {
+    "name": "林志明",
+    "phone": "0956-789-012",
+    "email": "zhiming.lin@example.com",
+    "company": "健康診所",
+    "category": "家人",
+    "notes": "堂哥"
+  },
+  {
+    "name": "黃雅婷",
+    "phone": "0967-890-123",
+    "email": "yating.huang@example.com",
+    "company": "美好科技",
+    "category": "同事",
+    "notes": "設計部門"
+  },
+  {
+    "name": "劉建國",
+    "phone": "0978-901-234",
+    "email": "jianguo.liu@example.com",
+    "company": "環球貿易",
+    "category": "客戶",
+    "notes": "年度合約"
+  },
+  {
+    "name": "吳美玲",
+    "phone": "0989-012-345",
+    "email": "meiling.wu@example.com",
+    "company": "",
+    "category": "朋友",
+    "notes": "大學同學"
+  },
+  {
+    "name": "鄭文傑",
+    "phone": "0911-234-567",
+    "email": "wenjie.zheng@example.com",
+    "company": "動力運動",
+    "category": "朋友",
+    "notes": "健身教練"
+  },
+  {
+    "name": "許雅琪",
+    "phone": "0922-345-678",
+    "email": "yaqi.xu@example.com",
+    "company": "甜蜜烘焙",
+    "category": "家人",
+    "notes": "表妹開的店"
+  }
+]
