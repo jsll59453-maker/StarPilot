@@ -579,8 +579,6 @@ A：個人使用完全免費
 3. 點擊將它 **關閉**
 4. 重新整理頁面，再點擊「**Retry connecting to the codespace**」
 
-![關閉追蹤防護示意](https://docs.github.com/assets/images/help/codespaces/codespaces-resolve-offline.png)
-
 > 💡 **建議**：課程教學時建議使用 **Chrome** 或 **Edge 一般模式**，可避免此問題。
 
 ---
