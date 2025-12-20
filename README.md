@@ -1254,64 +1254,117 @@ StarPilot/
 ```
 1️⃣ 前往 https://supabase.com
 2️⃣ 點擊右上角「Start your project」
-3️⃣ 選擇「Continue with GitHub」（推薦！一鍵快速）
-4️⃣ 在 GitHub 授權頁面點擊「Authorize supabase」
-5️⃣ 完成新手問卷（可跳過）
+3️⃣ 會看到「Welcome back / Sign in to your account」登入頁面
+4️⃣ 選擇「Continue with GitHub」（推薦！一鍵快速，標示 LAST USED）
+   - 也可選擇「Continue with SSO」或用 Email 登入
+5️⃣ 在 GitHub 授權頁面點擊「Authorize supabase」
+6️⃣ 完成新手問卷（可跳過）
 
-✅ 註冊完成！
+✅ 註冊/登入完成！
 ```
 
-**步驟 2：建立專案**
+**步驟 2：建立組織（Organization）**
 
 ```
-1️⃣ 點擊「New Project」
-2️⃣ 選擇或建立 Organization（組織）
-   - 名稱隨意填，方案選「Free」
-3️⃣ 填寫專案資訊：
-   - Name：contacts-app
-   - Database Password：設定密碼（請記住！）
-   - Region：Northeast Asia (Tokyo)
-4️⃣ 點擊「Create new project」
-5️⃣ 等待 2-3 分鐘建立完成
+首次使用會看到「Create a new organization」彈窗：
+
+1️⃣ Name（組織名稱）
+   - 填入你想要的名稱，例如「My Learning」
+   - 稍後可以修改
+
+2️⃣ Type（組織類型）
+   - 選擇「Personal」（個人使用）
+
+3️⃣ Plan（方案）
+   - 選擇「Free - $0/month」（免費方案）
+
+4️⃣ 點擊「Create organization」綠色按鈕
+
+✅ 組織建立完成！
+```
+
+**步驟 3：建立專案**
+
+```
+會看到「Create a new project」頁面：
+
+1️⃣ Organization（組織）
+   - 會自動選擇你剛建立的組織，旁邊會顯示「FREE」標籤
+
+2️⃣ Project name（專案名稱）
+   - 填入專案名稱，例如「contacts-app」
+   - 使用小寫英文和連字號
+
+3️⃣ Database password（資料庫密碼）
+   - 設定一個安全的密碼
+   - ⚠️ 請務必記住這個密碼！
+   - 或點擊「Generate a password」自動產生
+
+4️⃣ Region（地區）
+   - 選擇「Asia-Pacific」（亞太區）
+   - 這是離台灣較近的機房，速度較快
+
+5️⃣ 點擊「Create new project」綠色按鈕
+6️⃣ 等待 2-3 分鐘建立完成
 
 ✅ 專案建立成功！
 ```
 
-**步驟 3：建立資料表**
+**步驟 3：建立資料表（讓 AI 幫你做！）**
 
+> 💡 **核心理念**：你不需要學習如何手動建立資料表，只要把連線資訊給 AI，用說的就能完成！
+
+**先取得連線資訊：**
+
+📋 **取得 URL：**
 ```
-1️⃣ 點擊左側「Table Editor」
-2️⃣ 點擊「Create a new table」
-3️⃣ 設定資料表：
-   - Name：contacts
-   - ❌ 取消勾選「Enable RLS」（教學用）
-4️⃣ 新增欄位（Add column）：
-
-   | 欄位 | 類型 | 說明 |
-   |------|------|------|
-   | id | int8 | 主鍵（自動） |
-   | name | text | 姓名 |
-   | phone | text | 電話 |
-   | email | text | Email |
-   | company | text | 公司 |
-   | category | text | 分類 |
-   | notes | text | 備註 |
-   | created_at | timestamptz | 建立時間（預設 now()）|
-
-5️⃣ 點擊「Save」儲存
-
-✅ 資料表建立完成！
+1️⃣ 點擊上方的「Connect」按鈕
+2️⃣ 點擊「App Frameworks」分頁
+3️⃣ 複製 NEXT_PUBLIC_SUPABASE_URL 的值
+   例如：https://dldbdiqrgqgybswhuabd.supabase.co
 ```
 
-**步驟 4：取得 API 金鑰**
+📋 **取得資料庫密碼：**
+```
+就是你在步驟 2 建立專案時設定的密碼
+（如果忘記，可到 Settings → Database → Reset database password 重設）
+```
+
+**然後，把連線資訊給 AI：**
 
 ```
-1️⃣ 點擊左側「Project Settings」⚙️
-2️⃣ 點擊「API」
-3️⃣ 複製以下兩個資訊：
+👤：請幫我在 Supabase 建立通訊錄資料表
+    我的連線資訊：
+    - URL：https://xxxxx.supabase.co
+    - 資料庫密碼：xxxxxx
+```
 
-   📋 Project URL：https://xxxxx.supabase.co
-   📋 anon public key：eyJhbG...（很長一串）
+或者，具體指定欄位：
+
+```
+👤：請幫我在 Supabase 建立通訊錄資料表
+    我需要這些欄位：姓名、手機、公司、職稱、生日、備註
+    我的連線資訊：
+    - URL：https://xxxxx.supabase.co
+    - 資料庫密碼：xxxxxx
+```
+
+> 🎯 **兩種方式都可以**：讓 AI 自行決定欄位，或自己指定需要的欄位！
+
+> ⚠️ **關於安全性**：
+> - 直接把密碼貼給 AI 並不是最佳實務，但這是為了展示本課程的精神：**用說的請 AI 完成，不需要學技術細節**
+> - 密碼只用於請 AI 建立資料表，**不會寫進程式碼裡**
+> - 課程結束後建議到 Settings → Database 重設密碼
+
+**步驟 4：取得 API 金鑰（程式讀寫資料用）**
+
+> 💡 這個 API Key 是給 Streamlit 程式連接資料庫用的，跟步驟 3 的資料庫密碼不同。
+
+```
+1️⃣ 點擊左下角「Settings」（齒輪圖示 ⚙️）
+2️⃣ 點擊左側選單的「API Keys」
+3️⃣ 在「Publishable key」區域，複製 API KEY 的值
+   例如：sb_publishable_lK4MYxtEBZ_BRxiJz0qRWg_e6bJ4...
 
 ⚠️ API 金鑰要保密，不要上傳到公開的 GitHub！
 ```
