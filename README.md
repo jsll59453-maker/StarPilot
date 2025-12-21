@@ -6,8 +6,8 @@
 
 | 項目 | 內容 |
 |------|------|
-| **當前版本** | v1.0.0 |
-| **最後更新** | 2025-12-20 |
+| **當前版本** | v1.0.1 |
+| **最後更新** | 2025-12-21 |
 | **維護者** | JB-Ming |
 
 <details>
@@ -15,6 +15,7 @@
 
 | 版本 | 日期 | 更新內容 |
 |------|------|----------|
+| v1.0.1 | 2025-12-21 | 📝 修正 Supabase 教學：建立資料表改用 Access Token（原資料庫密碼方式無效）|
 | v1.0.0 | 2025-12-20 | 🎉 初始版本發布，包含完整教學內容與 10 個範例任務 |
 
 </details>
@@ -1293,7 +1294,7 @@ StarPilot/
 👤：請幫我在 Supabase 建立通訊錄資料表
     我的連線資訊：
     - URL：https://xxxxx.supabase.co
-    - 資料庫密碼：xxxxxx
+    - Access Token：sbp_xxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 或者，具體指定欄位：
@@ -1302,10 +1303,17 @@ StarPilot/
     我需要這些欄位：姓名、手機、公司、職稱、生日、備註
     我的連線資訊：
     - URL：https://xxxxx.supabase.co
-    - 資料庫密碼：xxxxxx
+    - Access Token：sbp_xxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 > 🎯 **兩種方式都可以**：讓 AI 自行決定欄位，或自己指定需要的欄位！
+
+> 💡 **AI 會怎麼做？**
+> 1. AI 會產生一個 Python 腳本（例如 `init_database.py`）
+> 2. 腳本裡包含建立資料表的 SQL 語法
+> 3. AI 會自動執行腳本，完成建表！
+> 
+> 你不需要學 SQL，不需要懂資料庫結構，也不需要打任何指令，AI 全部幫你搞定。
 
 **對話範例：改用 Supabase 儲存**
 ```
@@ -1314,9 +1322,9 @@ StarPilot/
 ```
 
 > ⚠️ **關於安全性**：
-> - 直接把密碼貼給 AI 並不是最佳實務，但這是為了展示本課程的精神：**用說的請 AI 完成，不需要學技術細節**
-> - 密碼只用於請 AI 建立資料表，**不會寫進程式碼裡**
-> - 課程結束後建議到 Settings → Database 重設密碼
+> - 直接把 Token 貼給 AI 並不是最佳實務，但這是為了展示本課程的精神：**用說的請 AI 完成，不需要學技術細節**
+> - Access Token 只用於請 AI 建立資料表，**不會寫進程式碼裡**
+> - 課程結束後建議到 Account → Access Tokens 刪除該 Token
 
 ---
 
@@ -1333,6 +1341,41 @@ StarPilot/
 | 🥇 **入門** | 一句話生成通訊錄，用 JSON 儲存，完成 CRUD 四大功能 |
 | 🥈 **進階** | 改成 Streamlit 版本，加入搜尋、分類標籤、美化介面 |
 | 🥉 **挑戰** | 連接 Supabase、部署到 Streamlit Cloud、加入匯入匯出功能 |
+
+#### 🔐 環境變數設定（本機 vs 雲端）
+
+> 💡 程式需要 Supabase 的 URL 和 API Key 才能連接資料庫，但這些敏感資訊不應該直接寫在程式碼裡。
+
+**本機開發：使用 `.env` 檔案**
+
+```
+在專案資料夾建立 .env 檔案，內容如下：
+
+SUPABASE_URL=https://xxxxxx.supabase.co
+SUPABASE_KEY=sb_publishable_xxxxxxxxxx
+```
+
+> AI 產生的程式碼會使用 `python-dotenv` 套件自動讀取 `.env` 檔案
+
+**Streamlit Cloud 部署：設定 Secrets**
+
+```
+部署到 Streamlit Cloud 後，.env 檔案不會被讀取，需要另外設定：
+
+1️⃣ 進入 Streamlit Cloud → My apps
+2️⃣ 找到你的應用，點擊右邊的「⋮」選單
+3️⃣ 點擊「Settings」
+4️⃣ 在左側選單點擊「Secrets」
+5️⃣ 輸入以下內容（TOML 格式）：
+
+SUPABASE_URL="https://xxxxxx.supabase.co"
+SUPABASE_KEY="sb_publishable_xxxxxxxxxx"
+
+6️⃣ 點擊「Save changes」儲存
+7️⃣ 應用會自動重啟並套用新設定
+```
+
+> ⚠️ **注意**：Secrets 使用 TOML 格式，字串值需要用雙引號包起來！
 
 #### ⚠️ 常見問題：Streamlit 版本錯誤
 
@@ -1435,13 +1478,18 @@ streamlit run streamlit_app.py
    例如：https://dldbdiqrgqgybswhuabd.supabase.co
 ```
 
-📋 **取得資料庫密碼：**
+📋 **取得 Access Token（讓 AI 建立資料表用）：**
 ```
-就是你在步驟 2 建立專案時設定的密碼
-（如果忘記，可到 Settings → Database → Reset database password 重設）
+1️⃣ 點擊右上角的頭像
+2️⃣ 點擊「Account preferences」
+3️⃣ 點擊左側選單的「Access Tokens」
+4️⃣ 點擊「Generate new token」按鈕
+5️⃣ 輸入名稱（例如：AI-Create-Table）並確認
+6️⃣ 複製產生的 Token（開頭是 sbp_...）
+   ⚠️ 這個 Token 只會顯示一次，請立即複製！
 ```
 
-> � 取得 URL 和密碼後，回到 [� 第三階段](#-第三階段連接雲端資料庫supabase)，用對話範例請 AI 幫你建立資料表！
+> 📌 取得 URL 和 Access Token 後，回到 [📍 第三階段](#-第三階段連接雲端資料庫supabase)，用對話範例請 AI 幫你建立資料表！
 
 **步驟 4：取得 API 金鑰（程式讀寫資料用）**
 
