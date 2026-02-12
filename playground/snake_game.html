@@ -211,6 +211,17 @@
                 <div class="control-item">空白鍵 - 暫停/繼續</div>
             </div>
 
+            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 20px;">
+                <h3 style="color: #333; font-size: 14px; margin-bottom: 10px;">🍎 食物類型</h3>
+                <div style="font-size: 12px; color: #666; line-height: 1.8;">
+                    <div>🔴 紅色: +10分, 增長1格</div>
+                    <div>🟡 黃色: +20分, 增長2格</div>
+                    <div>🟣 紫色: +30分, 增長3格</div>
+                    <div>🔵 青色: +40分, 增長4格</div>
+                    <div>🩷 粉色: +50分, 增長5格</div>
+                </div>
+            </div>
+
             <div class="buttons">
                 <button class="btn-start" id="startBtn" onclick="startGame()">開始遊戲</button>
                 <button class="btn-pause" id="pauseBtn" onclick="togglePause()" disabled>暫停</button>
@@ -230,7 +241,16 @@
         let score = 0;
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         let level = 1;
-        let gameSpeed = 100;
+        let gameSpeed = 150; // 增加速度值，讓蛇變慢
+
+        // 食物類型配置
+        const FOOD_TYPES = [
+            { color: '#ef4444', name: '紅色食物', points: 10, growthLength: 1 },    // 紅色，增長1
+            { color: '#eab308', name: '黃色食物', points: 20, growthLength: 2 },    // 黃色，增長2
+            { color: '#8b5cf6', name: '紫色食物', points: 30, growthLength: 3 },    // 紫色，增長3
+            { color: '#06b6d4', name: '青色食物', points: 40, growthLength: 4 },    // 青色，增長4
+            { color: '#ec4899', name: '粉色食物', points: 50, growthLength: 5 }     // 粉色，增長5
+        ];
 
         // 初始蛇
         let snake = [
@@ -239,8 +259,8 @@
             { x: 8, y: 10 }
         ];
 
-        // 食物位置
-        let food = { x: 15, y: 10 };
+        // 食物位置（5個）
+        let foods = [];
 
         // 方向
         let direction = { x: 1, y: 0 };
@@ -252,6 +272,7 @@
 
         // 初始化
         document.getElementById('highScore').textContent = highScore;
+        generateAllFoods();
 
         // 鍵盤控制
         document.addEventListener('keydown', (e) => {
@@ -289,7 +310,7 @@
             gamePaused = false;
             score = 0;
             level = 1;
-            gameSpeed = 100;
+            gameSpeed = 150;
             snake = [
                 { x: 10, y: 10 },
                 { x: 9, y: 10 },
@@ -297,7 +318,7 @@
             ];
             direction = { x: 1, y: 0 };
             nextDirection = { x: 1, y: 0 };
-            generateFood();
+            generateAllFoods();
             updateUI();
             document.getElementById('startBtn').disabled = true;
             document.getElementById('pauseBtn').disabled = false;
@@ -342,13 +363,25 @@
             snake.unshift(head);
 
             // 檢查是否吃到食物
-            if (head.x === food.x && head.y === food.y) {
-                score += 10;
-                // 每吃 5 個食物提升速度
-                if (score % 50 === 0) {
-                    level++;
-                    gameSpeed = Math.max(30, 100 - level * 10);
+            const eatenFoodIndex = foods.findIndex(food => food.x === head.x && food.y === head.y);
+            if (eatenFoodIndex !== -1) {
+                const eatenFood = foods[eatenFoodIndex];
+                const foodType = FOOD_TYPES.find(ft => ft.color === eatenFood.color);
+                score += foodType.points;
+
+                // 根據食物類型增加蛇的長度
+                for (let i = 0; i < foodType.growthLength; i++) {
+                    snake.push({ ...snake[snake.length - 1] });
                 }
+
+                // 每吃 100 分提升速度
+                if (score % 100 === 0) {
+                    level++;
+                    gameSpeed = Math.max(50, 150 - level * 10);
+                }
+
+                // 移除被吃的食物，生成新食物
+                foods.splice(eatenFoodIndex, 1);
                 generateFood();
             } else {
                 // 沒吃到食物，移除尾部
@@ -362,20 +395,38 @@
             setTimeout(gameLoop, gameSpeed);
         }
 
-        // 生成食物
-        function generateFood() {
+        // 生成所有食物（初始5個）
+        function generateAllFoods() {
+            foods = [];
+            for (let i = 0; i < FOOD_TYPES.length; i++) {
+                const newFood = generateSingleFood(FOOD_TYPES[i].color);
+                foods.push(newFood);
+            }
+        }
+
+        // 隨機生成單個食物
+        function generateSingleFood(color = null) {
             let newFood;
             let isOnSnake = true;
+            let isCrowded = true;
 
-            while (isOnSnake) {
+            while (isOnSnake || isCrowded) {
                 newFood = {
                     x: Math.floor(Math.random() * GRID_COUNT),
-                    y: Math.floor(Math.random() * GRID_COUNT)
+                    y: Math.floor(Math.random() * GRID_COUNT),
+                    color: color || FOOD_TYPES[Math.floor(Math.random() * FOOD_TYPES.length)].color
                 };
                 isOnSnake = snake.some(segment => segment.x === newFood.x && segment.y === newFood.y);
+                isCrowded = foods.some(food => food.x === newFood.x && food.y === newFood.y);
             }
 
-            food = newFood;
+            return newFood;
+        }
+
+        // 生成新食物（替換被吃掉的食物）
+        function generateFood() {
+            const newFood = generateSingleFood();
+            foods.push(newFood);
         }
 
         // 更新 UI
@@ -468,29 +519,31 @@
                 }
             });
 
-            // 繪製食物（紅色圓形）
-            ctx.fillStyle = '#ef4444';
-            ctx.beginPath();
-            ctx.arc(
-                food.x * GRID_SIZE + GRID_SIZE / 2,
-                food.y * GRID_SIZE + GRID_SIZE / 2,
-                GRID_SIZE / 2 - 2,
-                0,
-                Math.PI * 2
-            );
-            ctx.fill();
+            // 繪製食物（5種不同顏色）
+            foods.forEach(food => {
+                ctx.fillStyle = food.color;
+                ctx.beginPath();
+                ctx.arc(
+                    food.x * GRID_SIZE + GRID_SIZE / 2,
+                    food.y * GRID_SIZE + GRID_SIZE / 2,
+                    GRID_SIZE / 2 - 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
 
-            // 食物上的高光
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.beginPath();
-            ctx.arc(
-                food.x * GRID_SIZE + GRID_SIZE / 2 - 3,
-                food.y * GRID_SIZE + GRID_SIZE / 2 - 3,
-                2,
-                0,
-                Math.PI * 2
-            );
-            ctx.fill();
+                // 食物上的高光
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.beginPath();
+                ctx.arc(
+                    food.x * GRID_SIZE + GRID_SIZE / 2 - 3,
+                    food.y * GRID_SIZE + GRID_SIZE / 2 - 3,
+                    2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            });
         }
 
         // 初始化繪製
